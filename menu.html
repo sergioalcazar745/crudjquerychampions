@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg bg-light" style="background-color: #e3f2fd;">
+    <div class="container">
+        <a href="/" class='navbar-brand'><img src="images/logo.png" width="50px" height="50px" alt="logo"/>  Champions</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <NavLink to="/" class='nav-link'>Home</NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink to="/apuestas" class='nav-link'>Apuestas</NavLink>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Equipos
+                    </a>
+                    <ul class="dropdown-menu" id="menu">
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<script src="js/jquery-3.6.1.min.js"></script>
+<script src="./js/global.js"></script>
+<script>
+
+    $(document).ready(function(){
+        cargarEquipos();
+    });
+
+    function cargarEquipos(){
+        var request = url + "api/Equipos"
+
+        $.getJSON(request, function(data){
+            $.each(data, function(index, equipo){
+                var li = $("<li>")
+                var a = $("<a>", {text: equipo.nombre, href: "equipos.html?id=" + equipo.idEquipo, class: "dropdown-item"})
+                li.append(a)
+                $("#menu").append(li)
+            })
+        });
+    }
+    
+</script>

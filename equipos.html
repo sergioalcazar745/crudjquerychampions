@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="nav"></div>
+    <div class="container">
+      <div class="card my-5">
+        <div class="card-header" id="header">Featured</div>
+        <div class="card-body" id="cuerpo"></div>
+      </div>
+    </div>
+  </body>
+
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/jquery-3.6.1.min.js"></script>
+  <script src="./js/global.js"></script>
+  <script>
+    $(document).ready(function () {
+      $("#nav").load("menu.html");
+      var params = new URLSearchParams(window.location.search);
+      cargarEquipo(params.get("id"));
+    });
+
+    function cargarEquipo(id) {
+      var request = url + "api/Equipos/" + id;
+
+      $.getJSON(request, function (data) {
+        var html = `
+                <img src="${data.imagen}" />
+                <h5 className="card-title my-3">Champions:${data.champions}</h5>
+                <p className="card-text">${data.descripcion}</p>
+            `;
+        $("#cuerpo").html(html)
+        $("#header").text(data.nombre)
+      });
+    }
+  </script>
+</html>
