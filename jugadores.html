@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="nav"></div>
+    <div class="container">
+        <h1 class="my-5">Jugadores</h1>
+        <table class="table" id="tabla">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Imagen</th>
+                    <th scope="col">Detalles</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</body>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/jquery-3.6.1.min.js"></script>
+<script src="./js/global.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#nav").load("menu.html");
+        var params = new URLSearchParams(window.location.search);
+        cargarJugadores(params.get("id"));
+    });
+
+    function cargarJugadores(id) {
+        var html = "";
+        var request = url + "api/Jugadores/JugadoresEquipo/" + id;
+        $.getJSON(request, function (data) {
+            $.each(data, function (index, jugador) {
+                html += `
+                <tr>
+                    <td>${jugador.nombre}</td>
+                    <td><img src="${jugador.imagen}"/></td>
+                    <td><a href="${"/jugador.html?id=" + jugador.idJugador}" class="btn btn-outline-primary">Detalle</a></td>
+                </tr>
+                `;
+            });
+            $("#tabla tbody").html(html)
+        });
+    }
+</script>
+
+</html>

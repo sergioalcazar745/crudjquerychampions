@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="nav"></div>
+    <div class="container">
+        <h1 class="my-5">Apuestas</h1>
+        <table class="table" id="tabla">
+            <thead>
+                <tr>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Resultado</th>
+                    <th scope="col">Fecha</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <div class="text-center mb-5">
+            <a href="/crear-apuesta.html" class="btn btn-success">Relizar apuesta</a>
+        </div>        
+    </div>
+</body>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/jquery-3.6.1.min.js"></script>
+<script src="./js/global.js"></script>
+<script>
+
+    function cargarApuestas(){
+        var request = url + "api/Apuestas";
+        var html = "";
+
+        $.getJSON(request, function(data){
+            $.each(data, function(index, apuesta){
+                html += 
+                `
+                <tr>
+                    <td>${apuesta.usuario}</td>    
+                    <td>${apuesta.resultado}</td>
+                    <td>${apuesta.fecha}</td>
+                </tr>
+                `;
+            })
+            $("#tabla tbody").html(html)
+        })
+    }
+
+    $(document).ready(function(){
+        $("#nav").load("menu.html");
+        cargarApuestas();
+    });
+</script>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="nav"></div>
+    <div class="container">
+        <div class="card my-5 text-center">
+            <div class="card-header" id="header"></div>
+            <div class="card-body" id="cuerpo"></div>
+        </div>
+    </div>
+</body>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/jquery-3.6.1.min.js"></script>
+<script src="./js/global.js"></script>
+<script>
+
+    function cargarJugador(id){
+        var request = url + "api/Jugadores/" + id;
+        $.getJSON(request, function(jugador){
+            var html = 
+            `
+                <img src="${jugador.imagen}"/>
+                <h5 className="card-title my-3">Posicion: ${jugador.posicion}</h5>
+                <p className="card-text">Fecha de nacimiento: ${jugador.fechaNacimiento}<br/>País: ${jugador.pais}</p>
+                <a href='${"/jugadores.html?id=" + jugador.idEquipo}' class='btn btn-success'>Jugadores</a>
+                <a href='/' class='btn btn-danger'>Volver</a>
+            `;
+            $("#cuerpo").html(html);
+            $("#header").html(jugador.nombre);
+        });
+    }
+
+    $(document).ready(function(){
+        $("#nav").load("menu.html");
+        var params = new URLSearchParams(window.location.search);
+        cargarJugador(params.get("id"));
+    });
+</script>
+</html>

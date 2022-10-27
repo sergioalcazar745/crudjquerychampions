@@ -11,7 +11,7 @@
   <body>
     <div id="nav"></div>
     <div class="container">
-      <div class="card my-5">
+      <div class="card my-5 text-center">
         <div class="card-header" id="header">Featured</div>
         <div class="card-body" id="cuerpo"></div>
       </div>
@@ -36,9 +36,13 @@
                 <img src="${data.imagen}" />
                 <h5 className="card-title my-3">Champions:${data.champions}</h5>
                 <p className="card-text">${data.descripcion}</p>
+                <a href='${
+                  "/jugadores.html?id=" + data.idEquipo
+                }' class='btn btn-success'>Jugadores</a>
+                <a href='/' class='btn btn-danger'>Volver</a>
             `;
-        $("#cuerpo").html(html)
-        $("#header").text(data.nombre)
+        $("#cuerpo").html(html);
+        $("#header").text(data.nombre);
       });
     }
   </script>
